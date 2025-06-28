@@ -8,6 +8,10 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { titulo, conteudo, tema } = req.body;
 
+    if (!titulo || !conteudo || !tema) {
+      return res.status(400).json({ error: 'Campos obrigatórios: titulo, conteudo, tema' });
+    }
+
     const { data, error } = await supabase
       .from('chats_gpt')
       .insert([{ titulo, conteudo, tema }]);
@@ -37,5 +41,3 @@ export default async function handler(req, res) {
   }
 }
 
-// Adicione um comentário no topo
-// Redeploy forçado
