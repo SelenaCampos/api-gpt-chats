@@ -6,8 +6,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
-
 app.use(express.json());
 
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -26,7 +24,7 @@ app.post('/api/chats', async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 
-  res.status(201).json({ data });
+  res.status(201).json(data);
 });
 
 // Endpoint para buscar chats
@@ -45,11 +43,7 @@ app.get('/api/chats', async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 
-  res.status(200).json({ data });
-});
-
-app.listen(port, () => {
-  console.log(`API rodando na porta ${port}`);
+  res.status(200).json(data);
 });
 
 export default app;
